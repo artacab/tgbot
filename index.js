@@ -29,7 +29,7 @@ bot.onText(/\/help (.+)/, (msg, [source, match]) => {
     const {id} = msg.chat
     bot.sendMessage(id, debug(match))
 }) */
-bot.on('message', msg => {
+/* bot.on('message', msg => {
     const html = `
     <strong>Hello ${msg.from.first_name}</strong>
     <pre>
@@ -37,5 +37,61 @@ bot.on('message', msg => {
     </pre>`
     bot.sendMessage(msg.chat.id, html, {
         parse_mode: 'HTML'
+    })
+}) */
+/* bot.on('message', msg => {
+
+    const chatId = msg.chat.id
+    if(msg.text === 'Закрыть') {
+        bot.sendMessage(chatId, 'Закрываю клавиатуру', {
+            reply_markup: {
+                remove_keyboard: true
+            }
+        })
+    } else if(msg.text === 'Ответить') {
+        bot.sendMessage(chatId, 'отвечаю', {
+            reply_markup: {
+                force_reply: true
+            }
+        })
+    } else {
+        bot.sendMessage(chatId, 'Clava', {
+            reply_markup: {
+                keyboard: [
+                    [{
+                        text: 'Отправить местоположение',
+                        request_location: true
+                    }],
+                    ['Ответить','Закрыть'],
+                    [{
+                        text: 'Отправить контакт',
+                        request_contact: true
+                    }]
+                ],
+                one_time_keyboard: false
+            }
+        })
+    }
+}) */
+bot.on('message', msg => {
+
+    const chatId = msg.chat.id
+    bot.sendMessage(chatId, 'Inline keyboard', {
+        reply_markup: {
+            inline_keyboard: [
+                [{
+                    text: 'google',
+                    url: 'https://google.com'
+                }],
+                [{
+                    text: 'reply',
+                    callback_data: 'reply'
+                }],
+                [{
+                    text: 'forward',
+                    callback_data: 'forward'
+                }]
+            ]
+        }
     })
 })
