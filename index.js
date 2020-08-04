@@ -12,67 +12,7 @@ const bot = new TelegramBot(TOKEN, {
     }
 })
 
-/* bot.on('message', msg => {
-    const {id} = msg.chat
-    bot.sendMessage(id, debug(msg))
-    .then(() => {
-        console.log('Message send')
-    }).catch((error) => {
-        console.error(error)
-    })
-}) */
-/* bot.onText(/\/start/, msg => {
-    const {id} = msg.chat
-    bot.sendMessage(id, debug(msg))
-})
-bot.onText(/\/help (.+)/, (msg, [source, match]) => {
-    const {id} = msg.chat
-    bot.sendMessage(id, debug(match))
-}) */
-/* bot.on('message', msg => {
-    const html = `
-    <strong>Hello ${msg.from.first_name}</strong>
-    <pre>
-        ${debug(msg)}
-    </pre>`
-    bot.sendMessage(msg.chat.id, html, {
-        parse_mode: 'HTML'
-    })
-}) */
-/* bot.on('message', msg => {
 
-    const chatId = msg.chat.id
-    if(msg.text === 'Закрыть') {
-        bot.sendMessage(chatId, 'Закрываю клавиатуру', {
-            reply_markup: {
-                remove_keyboard: true
-            }
-        })
-    } else if(msg.text === 'Ответить') {
-        bot.sendMessage(chatId, 'отвечаю', {
-            reply_markup: {
-                force_reply: true
-            }
-        })
-    } else {
-        bot.sendMessage(chatId, 'Clava', {
-            reply_markup: {
-                keyboard: [
-                    [{
-                        text: 'Отправить местоположение',
-                        request_location: true
-                    }],
-                    ['Ответить','Закрыть'],
-                    [{
-                        text: 'Отправить контакт',
-                        request_contact: true
-                    }]
-                ],
-                one_time_keyboard: false
-            }
-        })
-    }
-}) */
 bot.on('message', msg => {
 
     const chatId = msg.chat.id
@@ -94,4 +34,8 @@ bot.on('message', msg => {
             ]
         }
     })
+})
+bot.on('callback_query', query => {
+    //bot.sendMessage(query.message.chat.id, debug(query))
+    bot.answerCallbackQuery(query.id, `${query.data}`)
 })
