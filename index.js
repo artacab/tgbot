@@ -94,8 +94,27 @@ bot.on('callback_query', query => {
 
     const {chat, message_id, text} = query.message
     switch(query.data) {
+        //пересылка сообщения
         case 'forward':
             bot.forwardMessage(chat.id, chat.id, message_id)
+            break
+        //ответ на сообщение
+        case 'reply':
+            bot.sendMessage(chat.id, 'Отвечаем на сообщение', {
+                reply_to_message_id: message_id
+            })
+            break
+        //редактирование сообщения
+        case 'edit':
+            bot.editMessageText(`${text} (edited)`, {
+                chat_id: chat.id,
+                message_id: message_id,
+                reply_markup: {inline_keyboard}
+            })
+            break
+        //удаление сообщения
+        case 'delete':
+            bot.deleteMessage(chat.id, message_id)
             break
     }
     bot.answerCallbackQuery({
